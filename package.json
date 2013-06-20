@@ -1,0 +1,45 @@
+{
+  "name": "count-min-sketch",
+  "version": "0.0.0",
+  "description": "Count-Min Sketch Data Structure",
+  "main": "count-min.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "k-hash": "~0.0.0"
+  },
+  "devDependencies": {
+    "tape": "~1.0.4"
+  },
+  "scripts": {
+    "test": "tap test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mikolalysenko/count-min-sketch.git"
+  },
+  "keywords": [
+    "count-min",
+    "count",
+    "min",
+    "increment",
+    "frequency",
+    "probabilistic",
+    "random",
+    "bloom",
+    "filter",
+    "heavy",
+    "hitter",
+    "sparse",
+    "stream",
+    "algorithm"
+  ],
+  "author": "Mikola Lysenko",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "gitHead": "f992fd4fa4f6d8f57399084c89692232fc5428d8",
+  "bugs": {
+    "url": "https://github.com/mikolalysenko/count-min-sketch/issues"
+  }
+}
