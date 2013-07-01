@@ -28,6 +28,37 @@ function CountMinSketch(width, depth, hashFunc) {
 
 var proto = CountMinSketch.prototype
 
+proto.toJSON = function() {
+  return {
+    width: this.width,
+    depth: this.depth,
+    table: Array.prototype.join.call(this.table, ''),
+    scratch: Array.prototype.join.call(this.scratch)
+  };
+}
+
+proto.fromJSON = function(data) {
+  if (typeof data == 'string') {
+    data = JSON.parse(data);
+  }
+  if (!(data.width && data.depth && data.table && data.scratch)) {
+    throw 'Cannot reconstruct the filter with a partial object';
+  }
+  var str2ab = function(main, split) {
+    var main = main.split(split);
+    var arr = new Uint32Array(main.length);
+    for (var i = 0; i < main.length; i++) {
+      arr.set(i, Number(main[i]));
+    }
+    return arr;
+  }
+  this.table = str2ab(data.table, '');
+  this.scratch = str2ab(data.scratch, ',');
+  this.width = data.width;
+  this.depth = data.depth;
+  return this;
+}
+
 proto.update = function(key, v) {
   var scratch = this.scratch
   var d = this.depth
