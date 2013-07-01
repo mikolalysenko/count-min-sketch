@@ -32,31 +32,36 @@ proto.toJSON = function() {
   return {
     width: this.width,
     depth: this.depth,
-    table: Array.prototype.join.call(this.table, ''),
-    scratch: Array.prototype.join.call(this.scratch)
-  };
+    table: Array.prototype.slice.call(this.table)
+  }
 }
 
 proto.fromJSON = function(data) {
   if (typeof data == 'string') {
-    data = JSON.parse(data);
+    data = JSON.parse(data)
   }
-  if (!(data.width && data.depth && data.table && data.scratch)) {
-    throw 'Cannot reconstruct the filter with a partial object';
+  if (!(data.width && data.depth && data.table)) {
+    throw new Error('Cannot reconstruct the filter with a partial object')
   }
-  var str2ab = function(main, split) {
-    var main = main.split(split);
-    var arr = new Uint32Array(main.length);
-    for (var i = 0; i < main.length; i++) {
-      arr.set(i, Number(main[i]));
-    }
-    return arr;
+  var n = data.width * data.depth
+  var table = this.table
+  if(table.length > n) {
+    table = table.subarray(0, n)
+  } else if(table.length < n) {
+    table = new Uint32Array(n)
   }
-  this.table = str2ab(data.table, '');
-  this.scratch = str2ab(data.scratch, ',');
-  this.width = data.width;
-  this.depth = data.depth;
-  return this;
+  var input_table = data.table
+  for(var i=0; i<n; ++i) {
+    table[i] = input_table[i]
+  }
+  if(this.scratch.length > data.depth) {
+    this.scratch = this.scratch.subarray(0, data.depth)
+  } else if(this.scratch.length < data.depth) {
+    this.scratch = new Uint32Array(data.depth)
+  }
+  this.width = data.width|0
+  this.depth = data.depth|0
+  return this
 }
 
 proto.update = function(key, v) {

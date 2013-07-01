@@ -64,5 +64,13 @@ Returns the frequency of the item `key`
 
 **Returns** An estimate of the frequency of `key`
 
+### `sketch.toJSON()`
+Returns a serializable JSON representation of the table.
+
+### `sketch.fromJSON(obj)`
+Converts a JSON object into a deserialized sketch.  The hash function is reused from the current sketch.  
+
+**Note** In order for this to be successful both the serialized hash table and the current hash table have to have the same hash function.
+
 ## Credits
 (c) 2013 Mikola Lysenko. MIT License

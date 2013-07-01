@@ -1,6 +1,6 @@
 {
   "name": "count-min-sketch",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Count-Min Sketch Data Structure",
   "main": "count-min.js",
   "directories": {
