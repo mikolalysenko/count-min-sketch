@@ -18,6 +18,13 @@ require("tape")("count-min-sketch", function(t) {
   t.equals(sketch.query("b"), 2)
   t.equals(sketch.query("c"), 1)
   
+  var x = sketch.toJSON()
+  var y = createCountMin()
+  y.fromJSON(x)
+  
+  t.equals(y.query("a"), 11)
+  t.equals(y.query("b"), 2)
+  t.equals(y.query("c"), 1)
   
   t.end()
 })
