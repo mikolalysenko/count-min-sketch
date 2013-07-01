@@ -61,6 +61,7 @@ proto.fromJSON = function(data) {
   }
   this.width = data.width|0
   this.depth = data.depth|0
+  this.table = table
   return this
 }
 
